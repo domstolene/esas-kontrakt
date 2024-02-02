@@ -1,11 +1,44 @@
 name: Publish package to GitHub Packages
 on:
   release:
-   types: [created]
-
+    types: [ created ]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to deploy'
+        required: true
+        default: 'v1.0.0'
+      ref_or_tag:
+        description: 'Tag or Ref to publish'
+        required: true
+        default: 'v1.0.0'
 jobs:
+  configure:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{steps.version.outputs.version}}
+      major_version: ${{steps.version.outputs.major_version}}
+    steps:
+      - name: Determine the version
+        id: version
+        run: |
+          VERSION=${{ github.event.inputs.version != '' && github.event.inputs.version || github.ref_name }}
+          if [[ $VERSION =~ ^v([0-9]+)\.([0-9]+)\.([0-9]+)$ ]]; then
+            echo "Version $VERSION is in correct format."
+            MAJOR_VERSION=${BASH_REMATCH[1]}
+            MINOR_VERSION=${BASH_REMATCH[2]}
+            PATCH_VERSION=${BASH_REMATCH[3]}
+            echo "Major: $MAJOR_VERSION, Minor: $MINOR_VERSION, Patch: $PATCH_VERSION"
+            echo "version=$MAJOR_VERSION.$MINOR_VERSION.$PATCH_VERSION" >> $GITHUB_OUTPUT
+            echo "major_version=$MAJOR_VERSION" >> $GITHUB_OUTPUT
+          else
+            echo "::error::Invalid version format for $VERSION. Expected format is v1.0.0"
+            exit 1
+          fi
+
   build:
     name: Publish artifacts
+    needs: configure
     runs-on: ubuntu-latest
 
     permissions:
@@ -14,11 +47,12 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.ref_or_tag  }}
 
       - name: Publish packages
         uses: gradle/gradle-build-action@v2
         with:
           gradle-version: wrapper
-          cache-read-only: true
-          arguments: publish -Pversion=${{github.ref_name}} -PGITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} -PGITHUB_USER=${{ github.actor }}
+          arguments: publish -Pversion=${{ needs.configure.outputs.version }} -PARTIFACT_VARIANT=${{ needs.configure.outputs.major_version }} -PGITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} -PGITHUB_USER=${{ github.actor }}
