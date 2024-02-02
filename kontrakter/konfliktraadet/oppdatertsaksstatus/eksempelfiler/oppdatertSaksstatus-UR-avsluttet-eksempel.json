@@ -1,0 +1,57 @@
+{
+  "forsendelse": {
+    "meldingsId": "C5E8E429-2B8E-48A9-A9D3-FDAA5F9BE5",
+    "sendtTid": "2022-11-03T10:19:55+02:00",
+    "avsender": {
+      "organisasjon": {
+        "organisasjonsnummer": "986074465",
+        "navn": "Konfliktrådet Oslo"
+      },
+      "person": {
+        "tittel": "Saksansvarlig",
+        "etternavn": "Årdal",
+        "kontakt": {
+          "telefonnummer": ["999999999"]
+        }
+      }
+    },
+    "mottakerOrganisasjon": {
+      "organisasjonsnummer": "983997953",
+      "navn": "Innlandet politidistrikt"
+    }
+  },
+  "straffesaksnummer": "15434811",
+  "statusOppdatering": {
+    "ungdomsreaksjonStatus": {
+      "avsluttetUngdomsreaksjon": {
+        "aarsak": "FULLFOERT",
+        "totalLengde": 56
+      }
+    }
+  },
+  "dokumenter": [
+    {
+      "internId": "9c3eced0-5792-4431-ae5c-ba0942c7e7bb",
+      "forsendelse": {
+        "mimeType": "application/pdf",
+        "sjekksum": "zG4JHcRs9dly360EYR9XzaCqLWRPEebL/LhNrDeEPQ8=",
+        "uri": "sftp://62.148.45.102/exchange/justishub/f048a6be-52c3-4ae1-94d3-0e4538c81393"
+      },
+      "overskrift": "Rettsbok førstegangsfengsling",
+      "skrevetDato": "2023-04-19",
+      "kategori": {
+        "kode": "DOKUMENTKATEGORI#RETTSBOK#1900-01-01",
+        "navn": "Rettsbok"
+      }
+    }
+  ],
+  "siktet": {
+    "navn": {
+      "fornavn": "Morsom",
+      "etternavn": "KIWI"
+    },
+    "identitetsnummer": {
+      "foedselsnummer": "31907499858"
+    }
+  }
+}

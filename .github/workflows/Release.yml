@@ -1,0 +1,24 @@
+name: Publish package to GitHub Packages
+on:
+  release:
+   types: [created]
+
+jobs:
+  build:
+    name: Publish artifacts
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Publish packages
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: wrapper
+          cache-read-only: true
+          arguments: publish -Pversion=${{github.ref_name}} -PGITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} -PGITHUB_USER=${{ github.actor }}

@@ -1,0 +1,34 @@
+{
+  "melding": "AKSEPT_TILBUDT_VARETEKTSPLASS",
+  "forsendelse": {
+    "meldingsId": "C5E8E429-2B8E-48A9-A9D3-FDAA5F9BEZ",
+    "sendtTid": "2022-11-03T10:19:55+02:00",
+    "avsender": {
+      "organisasjon": {
+        "organisasjonsnummer": "983997953",
+        "navn": "Innlandet politidistrikt"
+      },
+      "person": {
+        "brukeridentifikasjon": "PITBID123",
+        "etternavn": "PITBrukersen"
+      }
+    },
+    "mottakerOrganisasjon": {
+      "organisasjonsnummer": "911830868",
+      "navn": "Kriminalomsorgsdirektoratet"
+    }
+  },
+  "akseptTilbudtVaretektsplassId": "8e0f4c4b-97d7-49e8-9051-1fb92b88b9ab",
+  "tilbudVaretektsplassId": "b04782d3-502e-43d8-8c45-7e84d279d33a",
+  "hovedStraffesaksnummer": "15434811",
+  "varetektSyklusId": "D784D27C-C1BB-4BB2-90FD-96C414A64AE1",
+  "bestillingAvVaretektsplassId": "0322B3E2-B12B-40B6-8940-799C48706BE2",
+  "kontaktPersonKDI": {
+    "fornavn": "Peder",
+    "etternavn": "Superduper"
+  },
+  "fengselDerPlassTilbys": {
+    "organisasjonsnummer": "890286712",
+    "navn": "Bjørgvin fengsel"
+  }
+}
