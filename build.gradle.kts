@@ -44,7 +44,7 @@ publishing {
     repositories {
         maven {
             name = project.name
-            url = uri("https://maven.pkg.github.com/domstolene/esas-kontrakter")
+            url = uri("https://maven.pkg.github.com/domstolene/esas-kontrakt")
             credentials {
                 username = GITHUB_USER
                 password = GITHUB_TOKEN
