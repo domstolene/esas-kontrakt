@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://domstol.no/da/varetekt/1.0/KjennelseVaretekt.schema.json",
+  "$id": "https://domstol.no/da/varetekt/1.1/KjennelseVaretekt.schema.json",
   "description": "Schema definisjon av en Kjennelse-varetekt",
   "properties": {
     "forsendelse": {
@@ -29,7 +29,8 @@
       "type": "array",
       "items": {
         "$ref": "#/definitions/dokument"
-      }
+      },
+      "minItems": 1
     },
     "saksInformasjon": {
       "$ref": "#/definitions/saksInformasjon"
@@ -56,22 +57,18 @@
           "description": "Politiet sitt interne saksnummer"
         },
         "rettsmoeteTidFra": {
-          "$ref": "#/definitions/datoTid"
+          "$ref": "#/definitions/datoTid",
+          "description": "Dersom rettsmøte ikke avholdes, f.eks. ved kontorforrenting, skal dette feltet ikke fylles"
         },
         "rettsmoeteTidTil": {
-          "$ref": "#/definitions/datoTid"
+          "$ref": "#/definitions/datoTid",
+          "description": "Dersom rettsmøte ikke avholdes, f.eks. ved kontorforrenting, skal dette feltet ikke fylles"
         },
         "avgjoerelse": {
           "$ref": "#/definitions/avgjoerelse"
         }
       },
-      "required": [
-        "saksnummer",
-        "straffesaksnummer",
-        "rettsmoeteTidFra",
-        "rettsmoeteTidTil",
-        "avgjoerelse"
-      ],
+      "required": ["saksnummer", "straffesaksnummer", "avgjoerelse"],
       "type": "object",
       "additionalProperties": false
     },
