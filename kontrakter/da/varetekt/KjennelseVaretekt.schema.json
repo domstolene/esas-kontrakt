@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://domstol.no/da/varetekt/1.1/KjennelseVaretekt.schema.json",
+  "$id": "https://domstol.no/da/varetekt/1.2/KjennelseVaretekt.schema.json",
   "description": "Schema definisjon av en Kjennelse-varetekt",
   "properties": {
     "forsendelse": {
@@ -78,12 +78,23 @@
           "type": "string",
           "description": "Domstolen sin nøkkel til avgjørelsen. Kan bli brukt i forbindelse med anke/forlengelse"
         },
+        "avgjoerelseIdForrigeInstans": {
+          "type": "string",
+          "description": "Domstolen sin nøkkel til avgjørelsen i forrige instans. Settes kun dersom dette er en kjennelse i en ankesak"
+        },
         "avsagtDato": {
           "$ref": "#/definitions/dato"
         },
         "kravid": {
           "type": "string",
-          "description": "Kravid som opprettes i politiet"
+          "description": "Kravid i nåværende instans. Kan være null dersom saken er opprettet manuelt"
+        },
+        "opprinneligKravid": {
+          "type": "string",
+          "description": "Kraviden i første instans"
+        },
+        "avgjoerelseResultat": {
+          "$ref": "#/definitions/avgjoerelseResultat"
         },
         "restriksjoner": {
           "type": "array",
@@ -100,18 +111,20 @@
         "fengsling": {
           "$ref": "#/definitions/fengsling"
         },
-        "anke": {
-          "$ref": "#/definitions/anke",
-          "description": "Settes kun dersom hele eller deler av avgjørelsen ankes før kjennelsen sendes til påtale"
+        "erklaering": {
+          "$ref": "#/definitions/erklaering",
+          "description": "Erklæring fra siktede og påtale"
         }
       },
       "required": [
         "avgjoerelseId",
         "avsagtDato",
-        "kravid",
+        "opprinneligKravid",
+        "avgjoerelseResultat",
         "fengsling",
         "restriksjoner",
-        "isolasjonsKrav"
+        "isolasjonsKrav",
+        "erklaering"
       ],
       "type": "object",
       "additionalProperties": false
@@ -197,18 +210,94 @@
       "type": "object",
       "additionalProperties": false
     },
-    "anke": {
+    "erklaering": {
+      "properties": {
+        "erklaeringSiktede": {
+          "$ref": "#/definitions/erklaeringsDetaljer"
+        },
+        "erklaeringPaatale": {
+          "$ref": "#/definitions/erklaeringsDetaljer"
+        }
+      },
+      "required": ["erklaeringSiktede", "erklaeringPaatale"],
+      "type": "object",
+      "additionalProperties": false
+    },
+    "erklaeringsDetaljer": {
+      "properties": {
+        "meddeltIRettsmoete": {
+          "type": "boolean",
+          "description": "Settes til true dersom avgjørelsen er meddelt i rettsmøtet"
+        },
+        "erklaert": {
+          "$ref": "#/definitions/erklaertType",
+          "description": "Settes dersom avgjørelsen er meddelt i retten"
+        },
+        "ankeDetaljer": {
+          "$ref": "#/definitions/ankeDetaljer",
+          "description": "Settes dersom parten har anket hele eller deler av avgjørelsen"
+        }
+      },
+      "required": ["meddeltIRettsmoete"],
+      "type": "object",
+      "additionalProperties": false
+    },
+    "ankeDetaljer": {
       "properties": {
         "anketDato": {
           "$ref": "#/definitions/dato"
         },
         "oppsettendeVirkning": {
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Settes kun dersom det er påtale som anker"
+        },
+        "ankedeForhold": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/anketForholdType"
+          },
+          "minItems": 0,
+          "description": "Liste over hvilke forhold som ankes. Det kan være tilfeller der ingen forhold velges, men avgjørelsen ankes likevel"
+        },
+        "ankeBeskrivelse": {
+          "type": "string",
+          "description": "Kan brukes for å utdype hva som er anket. F.eks. dersom man velger 'ANNET' som anket forhold"
         }
       },
-      "required": ["anketDato"],
+      "required": ["anketDato", "ankedeForhold"],
       "type": "object",
       "additionalProperties": false
+    },
+    "erklaertType": {
+      "enum": ["VEDTATT", "ANKET", "BETENKNINGSTID"]
+    },
+    "anketForholdType": {
+      "enum": [
+        "BREV_OG_BESOEKSFORBUD",
+        "BREV_OG_BESOEKSKONTROLL",
+        "MEDIEFORBUD",
+        "DELVIS_ISOLASJON",
+        "FULL_ISOLASJON",
+        "FENGSLING",
+        "LOESLATELSE",
+        "ANNET"
+      ],
+      "type": "string"
+    },
+    "avgjoerelseResultat": {
+      "description": "ANKEN_FORKASTES og OPPHEVELSE kun relevant i ankesaker",
+      "enum": [
+        "FENGSLING",
+        "LOESLATELSE",
+        "FENGSLINGSSURROGAT",
+        "ANKEN_FORKASTES",
+        "OPPHEVELSE"
+      ],
+      "type": "string"
+    },
+    "rettsInstansType": {
+      "enum": ["TINGRETT", "LAGMANNSRETT", "HOEYESTERETT"],
+      "type": "string"
     },
     "restriksjonsType": {
       "description": "Liste over de ulike restriksjonene",
@@ -263,9 +352,13 @@
         "person": {
           "description": "Person som sender meldingen. Vanligvis dommeren eller saksbehandleren",
           "$ref": "#/definitions/ansattPerson"
+        },
+        "rettsInstans": {
+          "$ref": "#/definitions/rettsInstansType",
+          "description": "Rettsinstans avjørelsen er sendt fra"
         }
       },
-      "required": ["organisasjon"],
+      "required": ["organisasjon", "rettsInstans"],
       "type": "object",
       "additionalProperties": false
     },
