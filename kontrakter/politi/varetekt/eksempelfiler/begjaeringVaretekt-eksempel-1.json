@@ -297,9 +297,7 @@
               "identitetsnummer": {
                 "foedselsnummer": "21907699738"
               },
-              "tilleggsId": [],
               "kjoenn": "MANN",
-              "foedselsdato": "1976-10-21",
               "statsborgerskap": [
                 {
                   "kode": "NOR",
@@ -323,7 +321,6 @@
               "identitetsnummer": {
                 "foedselsnummer": "14845795658"
               },
-              "tilleggsId": [],
               "kjoenn": "KVINNE",
               "foedselsdato": "1957-04-14",
               "statsborgerskap": [

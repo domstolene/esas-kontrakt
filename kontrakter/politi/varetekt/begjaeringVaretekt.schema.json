@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://politiet.no/politi/fengsling/1.2/begjaeringVaretekt",
+  "$id": "https://politiet.no/politi/fengsling/1.3/begjaeringVaretekt",
   "description": "Skjema for begjæring av varetektsmeldinger fra påtale til tingretten, JSON Schema versjon 2020-12",
   "type": "object",
   "properties": {
@@ -258,7 +258,7 @@
           "type": "array",
           "description": "Verger trenger ikke å ha fødselsnummer og vil aldri ha SSP nummer",
           "items": {
-            "$ref": "#/definitions/person"
+            "$ref": "#/definitions/personRelatert"
           }
         }
       },
@@ -790,6 +790,38 @@
       "minLength": 11,
       "maxLength": 11
     },
+    "personFregIdentifikator": {
+      "type": "object",
+      "description": "Fødselsnummer eller D-nummer. I bruk på de som aldri vil ha SSP nummer",
+      "properties": {
+        "foedselsnummer": {
+          "$ref": "#/definitions/foedselsnummer"
+        },
+        "dNummer": {
+          "$ref": "#/definitions/dNummer"
+        }
+      },
+      "oneOf": [
+        {
+          "properties": {
+            "foedselsnummer": {
+              "$ref": "#/definitions/foedselsnummer"
+            }
+          },
+          "required": ["foedselsnummer"],
+          "additionalProperties": false
+        },
+        {
+          "properties": {
+            "dNummer": {
+              "$ref": "#/definitions/dNummer"
+            }
+          },
+          "required": ["dNummer"],
+          "additionalProperties": false
+        }
+      ]
+    },
     "personIdentifikator": {
       "type": "object",
       "description": "Fødselsnummer, D-nummer eller SSP nummer",
@@ -1011,6 +1043,46 @@
       ],
       "additionalProperties": false
     },
+    "personRelatert": {
+      "type": "object",
+      "description": "Personer som er involverte, men ikke siktet. Kan være verger, vitner, etc.",
+      "properties": {
+        "internId": {
+          "type": "string",
+          "description": "Intern id i melding, samme person i denne meldingen vil ha samme internId"
+        },
+        "navn": {
+          "$ref": "#/definitions/personnavn"
+        },
+        "foedselsdato": {
+          "type": "string",
+          "format": "date"
+        },
+        "kjoenn": {
+          "$ref": "#/definitions/kjoenn",
+          "description": "Ukjent kjønn hvis denne ikke er med"
+        },
+        "statsborgerskap": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/land"
+          }
+        },
+        "identitetsnummer": {
+          "$ref": "#/definitions/personFregIdentifikator",
+          "description": "Fødselsnummer eller D-nummer. Vitner og verger skal aldri ha SSP nummer"
+        },
+        "adresseGradering": {
+          "$ref": "#/definitions/adresseGradering",
+          "description": "Settes hvis en person har en beskyttet adresse. Fortrolig så sendes ikke adresse, strengt fortrolig så sendes pboks. adresse f.eks. SOT6, klient adresse vet ikke ennå"
+        },
+        "personAdresse": {
+          "$ref": "#/definitions/personAdresse"
+        }
+      },
+      "required": ["internId", "navn", "statsborgerskap"],
+      "additionalProperties": false
+    },
     "personEnkel": {
       "type": "object",
       "description": "Kun navn og fødselsdato (hvis den finnes)",
@@ -1208,7 +1280,7 @@
         "vitne": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/person"
+            "$ref": "#/definitions/personRelatert"
           }
         }
       },
