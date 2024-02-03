@@ -3,6 +3,42 @@
 Genererer kotlin-klasser basert på schema.json schema kontrakter. Brukes til elektronisk samhandling mellom politiet,
 kriminalomsorgen og domstolene
 
+# Publisering, artifacts og strategi
+
+Det publiseres egen artifact for hver release. 
+Eksempel: 
+- v1.0.0 -> no.domstol.esas-kontrakt-v1:1.0.0
+- v2.0.0 -> no.domstol.esas-kontrakt-v2:2.0.0
+
+Pakkenavnet til genererte kotlinklasser basert på .schema.json vil da også ligge under `no.domstol.esas.kontrakterV1`.
+Formålet med dette er å kunne bruke flere versjoner av kontraktene i samme applikasjon. Dette kan gjøres ved å importere
+en versjon per gradle modul
+Ved å ha separat artifact med unike pakkenavn vil man unngå avhengighet-problemer i bygd kode.
+
+**Hvis ikke blir det feil, fordi:**
+
+Hvis man publiserer flere versjoner av samme artifact:
+
+Eksempel:
+- no.domstol.esas-kontrakt:1.0.0
+- no.domstol.esas-kontrakt:1.1.0
+
+og prøver importere dette så vil det "se ut til å" fungere  
+å hente inn flere versjoner fra samme artifact. Dette gjøres typisk ved å importere en versjon i hver sin
+applikasjonsmodul og dette vil se bra ut når man sitter og lager kode.
+**Ved bygging og distribusjon vil kun høyeste versjon være tilgjengelig i den pakken som skal distribueres (.tar).
+Eksempel hvor dette ligger: build/distributions/service.tar**
+
+Da vil all bruk av kontrakter i applikasjonen være basert på høyeste versjon og det blir feil.
+
+# Versjonering
+
+Det er brukt en ny major for hver av de gamle meldings-versjonene hentet fra https://github.com/domstolene/ESAS
+- 1.0.0 -> 1.0.0
+- 1.1.0 -> 2.0.0
+- 1.2.0 -> 3.0.0
+- 1.3.0 -> 4.0.0
+
 # Kontrakter
 
 Forklaring på kontrakter og meldinger som er definert i dette prosjektet.
@@ -36,26 +72,26 @@ En kvitteringsmelding som indikerer feil bør også inneholde en beskrivelse om 
 * Status **UNDER_MOTTAK** indikerer at meldingen er mottatt, men ikke ferdig prosessert inn i saksbehandlingssystemet.
   Det kan fremdeles oppstå feil som gjør at avsender eller mottaker må starte feilsøking.
 * Status **MOTTATT** indikerer at alt er ok.
-    * Avsender kan fjerne vedlegg fra filtjeneste når MOTTATT status er mottatt
-    * Ingen nye kvitteringer forventes.
+  * Avsender kan fjerne vedlegg fra filtjeneste når MOTTATT status er mottatt
+  * Ingen nye kvitteringer forventes.
 * Status **FEILET_AVSENDER_TEKNISK** indikerer at det er en teknisk feil hos avsender. F.eks. feil format, vedlegg som
   ikke fins på STFP selv om det fins referanse i melding etc. Det er forventet av _avsender_ iverksette nødvendige
   tiltak for å sende melding på nytt.
-    * Feltet 'beskrivelse' skal fylles ut med en feilmelding/exception
-    * En slik status skal aldri sendes etter at en MOTTATT melding er sendt
-    * Ingen nye kvitteringer forventes.
+  * Feltet 'beskrivelse' skal fylles ut med en feilmelding/exception
+  * En slik status skal aldri sendes etter at en MOTTATT melding er sendt
+  * Ingen nye kvitteringer forventes.
 * Status **FEILET_AVSENDER_MANGLER** indikerer at det er mangler i forsendelsen som er avdekket av saksbehandler. F.eks.
   at forventet påtegning er avglemt. Meldingen forkastes og det er forventet av _avsender_ skal sende hele meldingen på
   nytt - vanligvis et menneske.
-    * Feltet 'beskrivelse' skal fylles ut med en feilmelding skrevet av bruker
-    * En slik status skal aldri sendes etter at en MOTTATT melding er sendt
-    * Ingen nye kvitteringer forventes.
+  * Feltet 'beskrivelse' skal fylles ut med en feilmelding skrevet av bruker
+  * En slik status skal aldri sendes etter at en MOTTATT melding er sendt
+  * Ingen nye kvitteringer forventes.
 * Status **FEILET_MOTTAKER** indikerer at det er noe feil hos mottaker. F.eks. bug eller system nede. Det er forventet
   at _mottaker_ undersøker.
-    * En slik status skal aldri sendes etter at en MOTTATT melding er sendt
-    * Det forventes at det skal komme en MOTTATT, FEILET_AVSENDER_MANGLER eller FEILET_AVSENDER_TEKNISK kvittering i
-      etterkant dersom feilen utbedres på mottakersiden. Men statusen kan bli stående dersom problemet løses ved at
-      meldingen sendes på nytt
+  * En slik status skal aldri sendes etter at en MOTTATT melding er sendt
+  * Det forventes at det skal komme en MOTTATT, FEILET_AVSENDER_MANGLER eller FEILET_AVSENDER_TEKNISK kvittering i
+    etterkant dersom feilen utbedres på mottakersiden. Men statusen kan bli stående dersom problemet løses ved at
+    meldingen sendes på nytt
 
 ## [Konfliktrådet](kontrakter/konfliktraadet)
 
