@@ -1,5 +1,6 @@
 import net.pwall.json.kotlin.codegen.gradle.JSONSchemaCodegen
 import net.pwall.json.kotlin.codegen.gradle.JSONSchemaCodegenPlugin
+import org.gradle.api.tasks.Copy
 
 buildscript {
     repositories {
@@ -30,7 +31,9 @@ sourceSets.main.configure {
 
 val version = project.version.toString()
 val majorVersion = Regex("^(\\d+)").find(version)?.value ?: "X"
+
 apply<JSONSchemaCodegenPlugin>()
+
 configure<JSONSchemaCodegen> {
     packageName.set("no.domstol.esas.kontrakterV${majorVersion}")
     inputs {
@@ -39,8 +42,20 @@ configure<JSONSchemaCodegen> {
     outputDir.set(file("build/generated-sources/kotlin"))
 }
 
-publishing {
+// Copy .schema.json files
+tasks.register<Copy>("copySchemaFiles") {
+    from("kontrakter") {
+        include("**/*.schema.json")
+    }
+    into("build/generated-sources/kotlin/no/domstol/esas/kontrakterV${majorVersion}")
+}
 
+// Make sure the copy task is executed before compileKotlin
+tasks.named("compileKotlin") {
+    dependsOn("copySchemaFiles")
+}
+
+publishing {
     repositories {
         maven {
             name = project.name
