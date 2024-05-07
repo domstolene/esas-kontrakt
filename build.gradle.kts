@@ -51,7 +51,14 @@ tasks.register<Copy>("copySchemaFiles") {
 }
 
 tasks.withType<Jar> {
-    from("${layout.buildDirectory}/generated-sources/kotlin")
+    from("${layout.buildDirectory}/generated-sources/kotlin") {
+        include("**/*.schema.json")
+        include("**/*.kt")
+    }
+}
+
+tasks.jar {
+    dependsOn("copySchemaFiles")
 }
 
 // Make sure the copy task is executed before compileKotlin
@@ -75,7 +82,7 @@ publishing {
         create<MavenPublication>("maven") {
             groupId = "no.domstol"
             artifactId = "${project.name}-v$ARTIFACT_VARIANT"
-            from(components["java"])
+            artifact(tasks.jar)
             pom {
                 licenses {
                     license {
