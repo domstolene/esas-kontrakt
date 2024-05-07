@@ -50,6 +50,10 @@ tasks.register<Copy>("copySchemaFiles") {
     into("build/generated-sources/kotlin/no/domstol/esas/kontrakterV${majorVersion}")
 }
 
+tasks.withType<Jar> {
+    from("${layout.buildDirectory}/generated-sources/kotlin")
+}
+
 // Make sure the copy task is executed before compileKotlin
 tasks.named("compileKotlin") {
     dependsOn("copySchemaFiles")
