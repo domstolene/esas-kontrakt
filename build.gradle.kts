@@ -51,14 +51,12 @@ tasks.register<Copy>("copySchemaFiles") {
 }
 
 tasks.withType<Jar> {
-    from("${layout.buildDirectory}/generated-sources/kotlin") {
-        include("**/*.schema.json")
-        include("**/*.kt")
-    }
-}
-
-tasks.jar {
     dependsOn("copySchemaFiles")
+    from("src/main/kotlin")  // Include main source set
+    from("$buildDir/generated-sources/kotlin") {
+        include("**/*.schema.json")  // Include schema files
+        include("**/*.kt")  // Include Kotlin files
+    }
 }
 
 // Make sure the copy task is executed before compileKotlin
