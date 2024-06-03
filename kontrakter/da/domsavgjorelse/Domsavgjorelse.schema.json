@@ -473,19 +473,13 @@
         },
         "mottaker": {
           "$ref": "#/definitions/mottaker"
-        },
-        "rettelse": {
-          "type": "boolean",
-          "description": "Settes til true dersom det er en menneskelig endring av en tidligere avgjørelse. (Dersom meldingen er resendt av tekniske årsaker vil denne stå som false)",
-          "default": false
         }
       },
       "required": [
         "meldingsId",
         "avsender",
         "mottaker",
-        "sendtTid",
-        "rettelse"
+        "sendtTid"
       ],
       "type": "object",
       "additionalProperties": false
@@ -498,15 +492,10 @@
         "person": {
           "description": "Person som sender meldingen. Vanligvis dommeren eller saksbehandleren",
           "$ref": "#/definitions/ansattPerson"
-        },
-        "rettsInstans": {
-          "$ref": "#/definitions/rettsInstansType",
-          "description": "Rettsinstans avjørelsen er sendt fra"
         }
       },
       "required": [
-        "organisasjon",
-        "rettsInstans"
+        "organisasjon"
       ],
       "type": "object",
       "additionalProperties": false
@@ -1019,14 +1008,6 @@
       "enum": [
         "KVINNE",
         "MANN"
-      ],
-      "type": "string"
-    },
-    "rettsInstansType": {
-      "enum": [
-        "TINGRETT",
-        "LAGMANNSRETT",
-        "HOEYESTERETT"
       ],
       "type": "string"
     },
