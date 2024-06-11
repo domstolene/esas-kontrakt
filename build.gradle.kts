@@ -11,6 +11,10 @@ buildscript {
     }
 }
 
+dependencies {
+    implementation("net.pwall.json:json-kotlin-schema:0.47")
+}
+
 plugins {
     kotlin("jvm") version "1.9.21"
     kotlin("plugin.serialization") version "1.9.21"
@@ -50,8 +54,17 @@ tasks.register<Copy>("copySchemaFiles") {
     into("build/generated-sources/kotlin/no/domstol/esas/kontrakterV${majorVersion}")
 }
 
+// Copy validator
+tasks.register<Copy>("copyValidator") {
+    from("validation") {
+        include("JSONSchemaValidator.kt")
+    }
+    into("build/generated-sources/kotlin/no/domstol/esas")
+}
+
 tasks.withType<Jar> {
     dependsOn("copySchemaFiles")
+    dependsOn("copyValidator")
     from("src/main/kotlin")  // Include main source set
     from("$buildDir/generated-sources/kotlin") {
         include("**/*.schema.json")  // Include schema files
@@ -62,6 +75,7 @@ tasks.withType<Jar> {
 // Make sure the copy task is executed before compileKotlin
 tasks.named("compileKotlin") {
     dependsOn("copySchemaFiles")
+    dependsOn("copyValidator")
 }
 
 publishing {
