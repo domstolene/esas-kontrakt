@@ -26,9 +26,9 @@
         "$ref": "#/definitions/siktetPerson"
       }
     },
-    "foretak": {
+    "siktedeForetak": {
       "type": "array",
-      "description": "Alle siktede eller fornærmede som er foretak. Kan være tom liste",
+      "description": "Alle siktede foretak. Kan være tom liste",
       "items": {
         "$ref": "#/definitions/foretak"
       }
@@ -38,6 +38,13 @@
       "description": "Fornærmede personer.",
       "items": {
         "$ref": "#/definitions/person"
+      }
+    },
+    "fornaermedeForetak": {
+      "type": "array",
+      "description": "Alle fornaermede foretak. Kan være tom liste",
+      "items": {
+        "$ref": "#/definitions/foretak"
       }
     },
     "straffesaker": {
@@ -61,8 +68,9 @@
     "begjaeringAnmodning",
     "siktelseTiltale",
     "siktedePersoner",
-    "foretak",
+    "siktedeForetak",
     "fornaermedePersoner",
+    "fornaermedeForetak",
     "straffesaker",
     "dokumenter"
   ],
@@ -77,8 +85,9 @@
       "description": "Referanse til begjæring til domstolen (kravId) eller forsendelse til Kriminalomsorgen anmodningsId",
       "properties": {
         "kravId": {
-          "$ref": "#/definitions/GUID",
-          "description": "Krav om avgjørelse kravId referanse til begjæring (varetekt, dom, annet) hvor denne siktelsen er vedlagt"
+          "description": "Krav om avgjørelse kravId referanse til begjæring (varetekt, dom, annet) hvor denne siktelsen er vedlagt",
+          "format": "uuid",
+          "type": "string"
         },
         "anmodningsId": {
           "$ref": "#/definitions/unikId",
@@ -221,7 +230,8 @@
       "description": "Alle har epost adresse, men kanskje ikke registrert mobil/telefon",
       "properties": {
         "epost": {
-          "type": "string"
+          "type": "string",
+          "format": "email"
         },
         "telefonnummer": {
           "$ref": "#/definitions/telefonnummer"
@@ -320,8 +330,9 @@
       "type": "object",
       "properties": {
         "meldingsId": {
-          "$ref": "#/definitions/GUID",
-          "description": "Unik ID for denne meldingen, hvis siktelsen blir sendt på nytt vil det være ny meldingsId"
+          "description": "Unik ID for denne meldingen, hvis siktelsen blir sendt på nytt vil det være ny meldingsId",
+          "format": "uuid",
+          "type": "string"
         },
         "sendtTid": {
           "type": "string",
@@ -508,8 +519,9 @@
       "description": "Foretak/ organisasjon som er med i en straffesak som f.eks. fornærmet",
       "properties": {
         "personForetakRef": {
-          "$ref": "#/definitions/GUID",
-          "description": "unik id kun lokalt i en melding, samme personForetakRef er samme foretak."
+          "description": "unik id kun lokalt i en melding, samme personForetakRef er samme foretak.",
+          "format": "uuid",
+          "type": "string"
         },
         "organisasjonsnummer": {
           "$ref": "#/definitions/organisasjonsnummer"
@@ -558,8 +570,9 @@
       "description": "Person med alle nyttige data som fødselsnummer adresse osv., SSP nummer kun på siktede, tiltalte.",
       "properties": {
         "personForetakRef": {
-          "$ref": "#/definitions/GUID",
-          "description": "Unik id kun lokalt i en melding, samme person kun i denne meldingen vil ha samme personForetakRef."
+          "description": "Unik id kun lokalt i en melding, samme person kun i denne meldingen vil ha samme personForetakRef.",
+          "format": "uuid",
+          "type": "string"
         },
         "navn": {
           "$ref": "#/definitions/personnavn"
@@ -612,8 +625,9 @@
       "description": "Person som ikke er siktet eller tiltalt, vil aldri ha SSP nummer",
       "properties": {
         "personForetakRef": {
-          "$ref": "#/definitions/GUID",
-          "description": "Unik id kun lokalt i en melding, samme person kun i denne meldingen vil ha samme personForetakRef."
+          "description": "Unik id kun lokalt i en melding, samme person kun i denne meldingen vil ha samme personForetakRef.",
+          "format": "uuid",
+          "type": "string"
         },
         "navn": {
           "$ref": "#/definitions/personnavn"
@@ -897,18 +911,21 @@
       "description": "Dokument som oversendes på justishub",
       "properties": {
         "dokumentRef": {
-          "$ref": "#/definitions/GUID",
-          "description": "Unik id for dokumentet kun lokalt i en melding. Bruker dokumentRef for å referere"
+          "description": "Unik id for dokumentet kun lokalt i en melding. Bruker dokumentRef for å referere",
+          "format": "uuid",
+          "type": "string"
         },
         "kategori": {
           "$ref": "#/definitions/kodeverk"
         },
         "overskrift": {
-          "type": "string"
+          "type": "string",
+          "description": "Overskrift/tittel i straffesaken sin dokumentliste, er ikke det samme som tittel skrevet inn i dokumentet"
         },
         "skrevetDato": {
           "type": "string",
-          "format": "date"
+          "format": "date",
+          "description": "Når dokumentet er skrevet ferdig."
         },
         "forsendelse": {
           "$ref": "#/definitions/dokumentForsendelse"
@@ -943,11 +960,13 @@
       "additionalProperties": false
     },
     "dokumentRef": {
-      "$ref": "#/definitions/GUID"
+      "format": "uuid",
+      "type": "string"
     },
     "personForetakRef": {
-      "$ref": "#/definitions/GUID",
-      "description": "Referanse inn person eller foretak lister"
+      "description": "Referanse inn person eller foretak lister",
+      "format": "uuid",
+      "type": "string"
     },
     "organisasjonsnummer": {
       "type": "string",
@@ -958,7 +977,7 @@
     },
     "lokalTid": {
       "type": "string",
-      "description": "Lokal tid uten tidssone og millisekunder. 2023-04-03T12:33:45 ISO 8601 uten millisekunder og tidssone",
+      "description": "Lokal tid uten tidssone. 2023-04-03T12:33:45 ISO 8601 uten tidssone. Det vil ikke være med millisekunder.",
       "format": "date-time"
     },
     "norskPostnummer": {
@@ -986,10 +1005,6 @@
       "description": "GUID eller andre unike id'er. Trenger ikke være global unik.",
       "maxLength": 40,
       "minLength": 5
-    },
-    "GUID": {
-      "type": "string",
-      "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
     }
   }
 }
