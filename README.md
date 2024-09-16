@@ -45,7 +45,7 @@ Forklaring på kontrakter og meldinger som er definert i dette prosjektet.
 
 ## [DA](kontrakter/da)
 
-### [Varetekt](kontrakter/da/varetekt)
+### [Varetekt](kontrakter/da/kjennelsevaretekt)
 
 ### [Felles](kontrakter/da/felles)
 
@@ -338,7 +338,7 @@ Verger
 Straffesaker som er de som er med i siktelsen.
 Varetektsyklusid - senere
 
-### [Kjennelse varetekt politi](kontrakter/politi/kjennelsevaretektoliti)
+### [Kjennelse varetekt politi](kontrakter/politi/kjennelsevaretektpoliti)
 
 #### Kjennelse på varetekt til Kriminalomsorgen (kjennelseVaretektPoliti)
 
