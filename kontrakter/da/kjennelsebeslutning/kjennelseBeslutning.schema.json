@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://domstol.no/beslutningdomstol/arbeidsversjon/beslutning.schema.json",
-  "description": "Skjema som definerer en beslutning",
+  "$id": "https://domstol.no/kjennelseBeslutning/1.0/kjennelseBeslutning",
+  "description": "Skjema som definerer en generell kjennelse eller beslutning",
   "properties": {
     "forsendelse": {
       "$ref": "#/definitions/forsendelse",
@@ -76,7 +76,7 @@
         },
         "avgjoerelseIdForrigeInstans": {
           "$ref": "#/definitions/GUID",
-          "description": "Domstolen sin id til avgjørelsen i forrige instans. Settes kun dersom dette er en dom i en ankesak"
+          "description": "Domstolen sin id til avgjørelsen i forrige instans. Settes kun dersom dette er en avgjørelse i en ankesak"
         },
         "avsagtDato": {
           "$ref": "#/definitions/dato"
@@ -89,18 +89,24 @@
           "$ref": "#/definitions/GUID",
           "description": "KravId i første instans."
         },
-        "beslutningsKaegori": {
-          "$ref": "#/definitions/beslutningsKategori",
-          "description": "Kategori for beslutningen"
+        "kategori": {
+          "$ref": "#/definitions/avgjoerelseKategori",
+          "description": "Kategori for avgjørelsen"
         },
-        "besluttning": {
+        "beskrivelse": {
           "type": "string",
-          "description": "Fritekst som beskriver beslutningen"
+          "description": "Fritekst som beskriver avgjørelsen"
+        },
+        "typeAvgjoerelse": {
+          "$ref": "#/definitions/avgjoerelseType",
+          "description": "Hva slags type avgjørelse dette er"
         }
       },
       "required": [
         "avgjoerelseId",
-        "avsagtDato"
+        "avsagtDato",
+        "kategori",
+        "typeAvgjoerelse"
       ],
       "type": "object",
       "additionalProperties": false
@@ -119,19 +125,13 @@
         },
         "mottaker": {
           "$ref": "#/definitions/mottaker"
-        },
-        "rettelse": {
-          "type": "boolean",
-          "description": "Settes til true dersom det er en menneskelig endring av en tidligere avgjørelse. (Dersom meldingen er resendt av tekniske årsaker vil denne stå som false)",
-          "default": false
         }
       },
       "required": [
         "meldingsId",
         "sendtTid",
         "avsender",
-        "mottaker",
-        "rettelse"
+        "mottaker"
       ],
       "type": "object",
       "additionalProperties": false
@@ -144,15 +144,10 @@
         "person": {
           "description": "Person som sender meldingen. Vanligvis dommeren eller saksbehandleren",
           "$ref": "#/definitions/ansattPerson"
-        },
-        "rettsInstans": {
-          "$ref": "#/definitions/rettsInstansType",
-          "description": "Rettsinstans avjørelsen er sendt fra"
         }
       },
       "required": [
-        "organisasjon",
-        "rettsInstans"
+        "organisasjon"
       ],
       "type": "object",
       "additionalProperties": false
@@ -263,26 +258,21 @@
       "type": "object",
       "additionalProperties": false
     },
-    "rettsInstansType": {
+    "avgjoerelseKategori": {
+      "description": "Bruk 'SAKEN_AVVIST' dersom tilståelse trekkes. 'SAK_AVVISET_ANNET' dersom sak lukkes uten avgjørelse. 'ANNET' på andre ting",
       "enum": [
-        "TINGRETT",
-        "LAGMANNSRETT",
-        "HOEYESTERETT"
+        "SAKEN_AVVIST",
+        "SAK_AVVIST_ANNET",
+        "ANNET"
       ],
       "type": "string"
     },
-    "beslutningsKategori": {
-      "$comment": "Vi kan vurdere å bruke kodeverk i stedet for enum her",
+    "avgjoerelseType": {
+      "description": "Type avgjørelse. Kjennelse eller beslutning, og om beslutningen kan ankes eller ikke",
       "enum": [
-        "BEVIS",
-        "MIDLERTIDIG",
-        "RETTSLIG_PROSESS",
-        "RETTSKOSTNAD",
-        "RETTSBIDLER",
-        "FORTSETTELSE_AV_SAK",
-        "OPPHØR_AV_SAK",
-        "LUKKEDE_DØRER",
-        "ANNET"
+        "KJENNELSE",
+        "BESLUTNING_INGEN_ANKE",
+        "BESLUTNIG_KAN_ANKES"
       ],
       "type": "string"
     },
@@ -330,7 +320,7 @@
     },
     "GUID": {
       "type": "string",
-      "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+      "format": "uuid"
     }
   }
 }
