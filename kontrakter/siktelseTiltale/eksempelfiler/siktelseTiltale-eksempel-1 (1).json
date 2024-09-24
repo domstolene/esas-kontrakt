@@ -92,59 +92,11 @@
         "idType": "FOEDSELSNUMMER",
         "verdi": "22918197870"
       },
-      "tilleggsId": [],
       "kjoenn": "KVINNE",
-      "foedselsdato": "1981-11-22",
-      "statsborgerskap": [
-        {
-          "kode": "NOR",
-          "navn": "Norge"
-        }
-      ]
+      "foedselsdato": "1981-11-22"
     }
   ],
   "siktedeForetak": [],
-  "fornaermedePersoner": [
-    {
-      "personForetakRef": "F34CAFDB-F3FB-4AC9-8FE0-2463BA57FC16",
-      "navn": {
-        "fornavn": "Entusiastisk",
-        "etternavn": "HARE"
-      },
-      "identitetsnummer": {
-        "idType": "FOEDSELSNUMMER",
-        "verdi": "25835799770"
-      },
-      "kjoenn": "MANN",
-      "foedselsdato": "1957-03-25",
-      "statsborgerskap": [
-        {
-          "kode": "NOR",
-          "navn": "Norge"
-        }
-      ]
-    },
-    {
-      "personForetakRef": "922E9192-CBB8-4A32-B2CC-CA7B3498D484",
-      "navn": {
-        "fornavn": "Fiolett",
-        "etternavn": "POSTKASSE"
-      },
-      "identitetsnummer": {
-        "idType": "FOEDSELSNUMMER",
-        "verdi": "15858796374"
-      },
-      "kjoenn": "MANN",
-      "foedselsdato": "1987-05-15",
-      "statsborgerskap": [
-        {
-          "kode": "NOR",
-          "navn": "Norge"
-        }
-      ]
-    }
-  ],
-  "fornaermedeForetak": [],
   "straffesaker": [
     {
       "straffesaksnummer": "15439561",
@@ -154,15 +106,10 @@
           "gjerningstidspunktTil": "2023-05-01T00:00:00+01:00",
           "gjerningssted": {
             "adresse": {
-              "adresselinjer": [
-                "Gartneriveien 2"
-              ],
+              "adresselinjer": ["Gartneriveien 2"],
               "postnummer": "3770",
               "poststed": "KRAGERØ",
-              "land": {
-                "kode": "NOR",
-                "navn": "Norge"
-              }
+              "land": { "kode": "NOR", "navn": "Norge" }
             }
           }
         },
@@ -171,9 +118,7 @@
           "navn": "Tyveri fra person på annet offentlig sted"
         }
       },
-      "fornaermede": [
-        "F34CAFDB-F3FB-4AC9-8FE0-2463BA57FC16"
-      ]
+      "fornaermede": ["F34CAFDB-F3FB-4AC9-8FE0-2463BA57FC16"]
     },
     {
       "straffesaksnummer": "15439560",
@@ -183,15 +128,10 @@
           "gjerningstidspunktTil": "2023-07-01T00:00:00+01:00",
           "gjerningssted": {
             "adresse": {
-              "adresselinjer": [
-                "Weiss gate 5D"
-              ],
+              "adresselinjer": ["Weiss gate 5D"],
               "postnummer": "3611",
               "poststed": "KONGSBERG",
-              "land": {
-                "kode": "NOR",
-                "navn": "Norge"
-              }
+              "land": { "kode": "NOR", "navn": "Norge" }
             }
           }
         },
@@ -200,9 +140,7 @@
           "navn": "Tyveri fra hytte/fritidsbolig"
         }
       },
-      "fornaermede": [
-        "922E9192-CBB8-4A32-B2CC-CA7B3498D484"
-      ]
+      "fornaermede": ["922E9192-CBB8-4A32-B2CC-CA7B3498D484"]
     }
   ],
   "dokumenter": []
