@@ -238,15 +238,8 @@
         "idType": "FOEDSELSNUMMER",
         "verdi": "29838099694"
       },
-      "tilleggsId": [],
       "kjoenn": "KVINNE",
-      "foedselsdato": "1980-03-29",
-      "statsborgerskap": [
-        {
-          "kode": "NOR",
-          "navn": "Norge"
-        }
-      ]
+      "foedselsdato": "1980-03-29"
     },
     {
       "personForetakRef": "BC2F7372-E548-4B2A-B5E9-0D009A9BA2DB",
@@ -258,74 +251,11 @@
         "idType": "FOEDSELSNUMMER",
         "verdi": "20923148036"
       },
-      "tilleggsId": [],
       "kjoenn": "KVINNE",
-      "foedselsdato": "1931-12-20",
-      "statsborgerskap": [
-        {
-          "kode": "NOR",
-          "navn": "Norge"
-        }
-      ]
+      "foedselsdato": "1931-12-20"
     }
   ],
   "siktedeForetak": [],
-  "fornaermedePersoner": [
-    {
-      "personForetakRef": "FC894809-0F66-46AE-BC59-A19CE86250B5",
-      "navn": {
-        "fornavn": "Rala",
-        "etternavn": "YOU"
-      },
-      "kjoenn": "KVINNE",
-      "foedselsdato": "2000-12-01",
-      "statsborgerskap": [
-        {
-          "kode": "DZA",
-          "navn": "Algerie"
-        }
-      ]
-    },
-    {
-      "personForetakRef": "625DE28C-43B4-4F46-AAB4-5D835CE8B794",
-      "navn": {
-        "fornavn": "Trådløs",
-        "etternavn": "JENTE"
-      },
-      "identitetsnummer": {
-        "idType": "FOEDSELSNUMMER",
-        "verdi": "19839299845"
-      },
-      "kjoenn": "KVINNE",
-      "foedselsdato": "1992-03-19",
-      "statsborgerskap": [
-        {
-          "kode": "NOR",
-          "navn": "Norge"
-        }
-      ]
-    },
-    {
-      "personForetakRef": "1AD4BD7F-7A21-4B4B-9CAE-E0325F6EE2BD",
-      "navn": {
-        "fornavn": "Deilig",
-        "etternavn": "DAGBOK"
-      },
-      "identitetsnummer": {
-        "idType": "FOEDSELSNUMMER",
-        "verdi": "04836396354"
-      },
-      "kjoenn": "MANN",
-      "foedselsdato": "1963-03-04",
-      "statsborgerskap": [
-        {
-          "kode": "NOR",
-          "navn": "Norge"
-        }
-      ]
-    }
-  ],
-  "fornaermedeForetak": [],
   "straffesaker": [
     {
       "straffesaksnummer": "15439559",
@@ -335,15 +265,10 @@
           "gjerningstidspunktTil": "2022-07-01T00:00:00+01:00",
           "gjerningssted": {
             "adresse": {
-              "adresselinjer": [
-                "Wesselvegen 29"
-              ],
+              "adresselinjer": ["Wesselvegen 29"],
               "postnummer": "3740",
               "poststed": "SKIEN",
-              "land": {
-                "kode": "NOR",
-                "navn": "Norgen"
-              }
+              "land": { "kode": "NOR", "navn": "Norgen" }
             }
           }
         },
@@ -352,9 +277,7 @@
           "navn": "Tyveri fra hytte/fritidsbolig"
         }
       },
-      "fornaermede": [
-        "625DE28C-43B4-4F46-AAB4-5D835CE8B794"
-      ]
+      "fornaermede": ["625DE28C-43B4-4F46-AAB4-5D835CE8B794"]
     },
     {
       "straffesaksnummer": "15440390",
@@ -364,15 +287,10 @@
           "gjerningstidspunktTil": "2023-12-01T00:00:00+02:00",
           "gjerningssted": {
             "adresse": {
-              "adresselinjer": [
-                "Weidemanns gate 5"
-              ],
+              "adresselinjer": ["Weidemanns gate 5"],
               "postnummer": "3080",
               "poststed": "HOLMESTRAND",
-              "land": {
-                "kode": "NOR",
-                "navn": "Norgen"
-              }
+              "land": { "kode": "NOR", "navn": "Norgen" }
             }
           }
         },
@@ -391,15 +309,10 @@
           "gjerningstidspunktTil": "2015-11-01T00:00:00+02:00",
           "gjerningssted": {
             "adresse": {
-              "adresselinjer": [
-                "Wergelands vei 11"
-              ],
+              "adresselinjer": ["Wergelands vei 11"],
               "postnummer": "3256",
               "poststed": "LARVIK",
-              "land": {
-                "kode": "NOR",
-                "navn": "Norgen"
-              }
+              "land": { "kode": "NOR", "navn": "Norgen" }
             }
           }
         },
@@ -408,9 +321,7 @@
           "navn": "Grovt tyveri fra hytte"
         }
       },
-      "fornaermede": [
-        "FC894809-0F66-46AE-BC59-A19CE86250B5"
-      ]
+      "fornaermede": ["FC894809-0F66-46AE-BC59-A19CE86250B5"]
     },
     {
       "straffesaksnummer": "15439557",
@@ -420,15 +331,10 @@
           "gjerningstidspunktTil": "2015-08-01T00:00:00+01:00",
           "gjerningssted": {
             "adresse": {
-              "adresselinjer": [
-                "Wergelands vei 11"
-              ],
+              "adresselinjer": ["Wergelands vei 11"],
               "postnummer": "3256",
               "poststed": "LARVIK",
-              "land": {
-                "kode": "NOR",
-                "navn": "Norgen"
-              }
+              "land": { "kode": "NOR", "navn": "Norgen" }
             }
           }
         },
@@ -447,15 +353,10 @@
           "gjerningstidspunktTil": "2023-02-01T00:00:00+02:00",
           "gjerningssted": {
             "adresse": {
-              "adresselinjer": [
-                "Westadkleiva 9"
-              ],
+              "adresselinjer": ["Westadkleiva 9"],
               "postnummer": "3360",
               "poststed": "GEITHUS",
-              "land": {
-                "kode": "NOR",
-                "navn": "Norgen"
-              }
+              "land": { "kode": "NOR", "navn": "Norgen" }
             }
           }
         },
@@ -474,15 +375,10 @@
           "gjerningstidspunktTil": "2018-11-11T00:00:00+02:00",
           "gjerningssted": {
             "adresse": {
-              "adresselinjer": [
-                "Wahlstrøms gate 9"
-              ],
+              "adresselinjer": ["Wahlstrøms gate 9"],
               "postnummer": "3513",
               "poststed": "HØNEFOSS",
-              "land": {
-                "kode": "NOR",
-                "navn": "Norgen"
-              }
+              "land": { "kode": "NOR", "navn": "Norgen" }
             }
           }
         },
@@ -491,9 +387,7 @@
           "navn": "Menneskehandel tilrettelegge mv - grov"
         }
       },
-      "fornaermede": [
-        "1AD4BD7F-7A21-4B4B-9CAE-E0325F6EE2BD"
-      ]
+      "fornaermede": ["1AD4BD7F-7A21-4B4B-9CAE-E0325F6EE2BD"]
     }
   ],
   "dokumenter": []
