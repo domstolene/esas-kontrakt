@@ -33,8 +33,7 @@ sourceSets.main.configure {
     kotlin.srcDirs(layout.buildDirectory.dir("generated-sources/kotlin"))
 }
 
-val version = project.version.toString()
-val majorVersion = Regex("^(\\d+)").find(version)?.value ?: "X"
+val majorVersion = Regex("^(\\d+)").find(project.version.toString())?.value ?: "X"
 
 apply<JSONSchemaCodegenPlugin>()
 
@@ -51,7 +50,17 @@ tasks.register<Copy>("copySchemaFiles") {
     from("kontrakter") {
         include("**/*.schema.json")
     }
-    into("build/generated-sources/kotlin/no/domstol/esas/kontrakterV${majorVersion}")
+    into(layout.buildDirectory.dir("generated-sources/kotlin/no/domstol/esas/kontrakterV${majorVersion}"))
+}
+
+//Copy example files
+tasks.register<Copy>("copyExampleFiles") {
+    from("kontrakter") {
+        include("**/eksempelfiler/*.json")
+    }
+    into(layout.buildDirectory.dir("generated-sources/kotlin/no/domstol/esas/kontrakterV${majorVersion}/"))
+
+    includeEmptyDirs = false
 }
 
 // Copy validator
@@ -59,23 +68,28 @@ tasks.register<Copy>("copyValidator") {
     from("validation") {
         include("JSONSchemaValidator.kt")
     }
-    into("build/generated-sources/kotlin/no/domstol/esas")
+    into(layout.buildDirectory.dir("generated-sources/kotlin/no/domstol/esas"))
 }
 
 tasks.withType<Jar> {
     dependsOn("copySchemaFiles")
     dependsOn("copyValidator")
+    dependsOn("copyExampleFiles")
     from("src/main/kotlin")  // Include main source set
-    from("$buildDir/generated-sources/kotlin") {
+    from(layout.buildDirectory.dir("generated-sources/kotlin")) {
         include("**/*.schema.json")  // Include schema files
         include("**/*.kt")  // Include Kotlin files
+    }
+    // Include example files
+    from(layout.buildDirectory.dir(
+        "generated-sources/kotlin/no/domstol/esas/kontrakterV${majorVersion}/eksempelfiler")) {
+        include("**/*.json")
     }
 }
 
 // Make sure the copy task is executed before compileKotlin
 tasks.named("compileKotlin") {
-    dependsOn("copySchemaFiles")
-    dependsOn("copyValidator")
+    dependsOn("copySchemaFiles", "copyExampleFiles", "copyValidator")
 }
 
 publishing {
