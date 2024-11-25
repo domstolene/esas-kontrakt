@@ -19,10 +19,7 @@
           "description": "Saksbehandler på saken"
         }
       },
-      "required": [
-        "dommer",
-        "saksbehandler"
-      ],
+      "required": ["dommer", "saksbehandler"],
       "type": "object",
       "additionalProperties": false
     },
@@ -37,12 +34,7 @@
       "$ref": "#/definitions/saksInformasjon"
     }
   },
-  "required": [
-    "forsendelse",
-    "aktoerer",
-    "dokumenter",
-    "saksInformasjon"
-  ],
+  "required": ["forsendelse", "aktoerer", "dokumenter", "saksInformasjon"],
   "type": "object",
   "additionalProperties": false,
   "definitions": {
@@ -60,11 +52,7 @@
           "$ref": "#/definitions/avgjoerelse"
         }
       },
-      "required": [
-        "saksnummer",
-        "straffesaksnummer",
-        "avgjoerelse"
-      ],
+      "required": ["saksnummer", "straffesaksnummer", "avgjoerelse"],
       "type": "object",
       "additionalProperties": false
     },
@@ -127,12 +115,7 @@
           "$ref": "#/definitions/mottaker"
         }
       },
-      "required": [
-        "meldingsId",
-        "sendtTid",
-        "avsender",
-        "mottaker"
-      ],
+      "required": ["meldingsId", "sendtTid", "avsender", "mottaker"],
       "type": "object",
       "additionalProperties": false
     },
@@ -146,9 +129,7 @@
           "$ref": "#/definitions/ansattPerson"
         }
       },
-      "required": [
-        "organisasjon"
-      ],
+      "required": ["organisasjon"],
       "type": "object",
       "additionalProperties": false
     },
@@ -158,9 +139,7 @@
           "$ref": "#/definitions/organisasjon"
         }
       },
-      "required": [
-        "organisasjon"
-      ],
+      "required": ["organisasjon"],
       "type": "object",
       "additionalProperties": false
     },
@@ -175,9 +154,7 @@
           "$ref": "#/definitions/organisasjonsnummer"
         }
       },
-      "required": [
-        "organisasjonsnummer"
-      ],
+      "required": ["organisasjonsnummer"],
       "type": "object",
       "additionalProperties": false
     },
@@ -206,12 +183,7 @@
           "$ref": "#/definitions/kodeverk"
         }
       },
-      "required": [
-        "internId",
-        "forsendelse",
-        "overskrift",
-        "kategori"
-      ],
+      "required": ["internId", "forsendelse", "overskrift", "kategori"],
       "type": "object",
       "additionalProperties": false
     },
@@ -229,11 +201,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "mimeType",
-        "sjekksum",
-        "uri"
-      ],
+      "required": ["mimeType", "sjekksum", "uri"],
       "type": "object",
       "additionalProperties": false
     },
@@ -250,30 +218,18 @@
           "type": "string"
         }
       },
-      "required": [
-        "etternavn",
-        "fornavn",
-        "tittel"
-      ],
+      "required": ["etternavn", "fornavn", "tittel"],
       "type": "object",
       "additionalProperties": false
     },
     "avgjoerelseKategori": {
       "description": "Bruk 'SAKEN_AVVIST' dersom tilståelse trekkes. 'SAK_AVVISET_ANNET' dersom sak lukkes uten avgjørelse. 'ANNET' på andre ting",
-      "enum": [
-        "SAKEN_AVVIST",
-        "SAK_AVVIST_ANNET",
-        "ANNET"
-      ],
+      "enum": ["SAKEN_AVVIST", "SAK_AVVIST_ANNET", "ANNET"],
       "type": "string"
     },
     "avgjoerelseType": {
       "description": "Type avgjørelse. Kjennelse eller beslutning, og om beslutningen kan ankes eller ikke",
-      "enum": [
-        "KJENNELSE",
-        "BESLUTNING_INGEN_ANKE",
-        "BESLUTNIG_KAN_ANKES"
-      ],
+      "enum": ["KJENNELSE", "BESLUTNING_INGEN_ANKE", "BESLUTNIG_KAN_ANKES"],
       "type": "string"
     },
     "internId": {
@@ -299,9 +255,7 @@
         }
       },
       "type": "object",
-      "required": [
-        "kode"
-      ],
+      "required": ["kode"],
       "additionalProperties": false
     },
     "straffesaksnummer": {
