@@ -25,6 +25,7 @@
       }
     }
   },
+  "pakkeId": "CADC75FC-22EF-478E-B4EC-27C49F85FD70",
   "paastandStraff": {
     "kravId": "c2f05c05-79d3-4722-853c-cf3614e8101f",
     "paastandStraffPersonForetak": [
@@ -83,7 +84,21 @@
                 "detaljer": "f. gjennomføre narkotikaprogram med domstolskontroll, jf. § 38,"
               }
             ]
-          }
+          },
+          "rettighetstapMotorvogn": [
+            {
+              "hjemmel": {
+                "lovbudStreng": "§24a annet ledd. Sperrefrist for retten til å føre førerkortpliktig motorvogn pga. straffbart forhold mm."
+              },
+              "varighet": {
+                "lengde": {
+                  "antallAar": 2,
+                  "antallMaaneder": 4
+                }
+              },
+              "tekst": "Siktede minster retten til å føre alle typer førerkortpliktig motorvogner i hele perioden"
+            }
+          ]
         }
       }
     ]
