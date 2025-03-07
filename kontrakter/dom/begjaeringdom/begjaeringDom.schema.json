@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://politiet.no/dom/1.0/begjaeringDom",
+  "$id": "https://politiet.no/dom/1.1/begjaeringDom",
   "description": "Begjæring om dom fra politiet til tingretten, ønsker domsavgjørelse tilbake.",
 
   "type": "object",
@@ -8,6 +8,10 @@
     "forsendelse": {
       "$ref": "#/definitions/forsendelse",
       "description": "avsender og mottaker"
+    },
+    "pakkeId": {
+      "$ref": "#/definitions/GUID",
+      "description": "Hvis meldingen sendes sammen med flere f.eks. siktelse og påstand om straff så vil alle de 3 meldingene ha samme pakke id."
     },
     "begjaeringDom": {
       "$ref": "#/definitions/begjaeringDom"
@@ -293,6 +297,10 @@
           "$ref": "#/definitions/siktetPerson",
           "description": "Siktede har alltid identitetsnummer (fødselsnummer, dnummer eller SSP nummer)"
         },
+        "under18Gjerningstid": {
+          "type": "boolean",
+          "description": "Sant hvis siktede var under 18 år på en av gjerningstidspunktene som personen er siktet i"
+        },
         "tolk": {
           "type": "object",
           "properties": {
@@ -310,7 +318,7 @@
           "$ref": "#/definitions/forsvarerinformasjon"
         }
       },
-      "required": ["siktetPerson"],
+      "required": ["siktetPerson", "under18Gjerningstid"],
       "additionalProperties": false
     },
     "siktetPerson": {

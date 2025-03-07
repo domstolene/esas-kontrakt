@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://politiet.no/1.0/siktelseTiltale",
+  "$id": "https://politiet.no/1.1/siktelseTiltale",
   "description": "Siktelse, tiltale, forelegg, tilleggssiktelse, tilleggstiltale som egen melding, JSON Schema versjon 2020-12",
 
   "type": "object",
@@ -8,6 +8,10 @@
     "forsendelse": {
       "$ref": "#/definitions/forsendelse",
       "description": "avsender og mottaker"
+    },
+    "pakkeId": {
+      "$ref": "#/definitions/GUID",
+      "description": "Hvis meldingen sendes sammen med flere f.eks. paastandStraff og begjaeringDom så vil alle de 3 meldingene ha samme pakke id."
     },
     "hovedStraffesaksnummer": {
       "$ref": "#/definitions/straffesaksnummer",
@@ -427,8 +431,8 @@
         "SIKTELSE",
         "TILTALE",
         "FORELEGG",
-        "TILLEGSSIKTELSE",
-        "TILLEGSTILTALE",
+        "TILLEGGSSIKTELSE",
+        "TILLEGGSTILTALE",
         "PAAGRIPELSE_BESLUTNING"
       ]
     },
