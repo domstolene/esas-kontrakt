@@ -130,7 +130,8 @@
                   "antallMaaneder": 4
                 }
               },
-              "tekst": "Siktede minster retten til å føre alle typer førerkortpliktig motorvogner i hele perioden"
+              "nyFoererproeve": "FULL",
+              "tekst": "Siktede minster retten til å føre alle typer førerkortpliktige motorvogner i hele perioden"
             }
           ],
           "bot": {
@@ -178,6 +179,27 @@
               "beloep": 20000,
               "beskrivelse": "Indragelse av.. ifm. tyveri i ... Alternativt skal 20 000 NOK tilfalle fornærmede",
               "tilfaller": "Peder Ås"
+            }
+          ],
+          "rettighetstapForbudKontakt": [
+            {
+              "hjemmel": {
+                "lovbudStreng": "§57. Forbud mot kontakt"
+              },
+              "varighet": {
+                "lengde": {
+                  "antallAar": 2,
+                  "antallMaaneder": 4
+                }
+              },
+              "varighetElektroniskKontroll": {
+                "lengde": {
+                  "antallAar": 1,
+                  "antallMaaneder": 4
+                }
+              },
+              "tekstElektroniskKontroll": "Skal kontrolleres elektronisk",
+              "gjelderEgetHjem": true
             }
           ]
         },
