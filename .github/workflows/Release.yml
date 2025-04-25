@@ -52,7 +52,7 @@ jobs:
           ref: ${{ github.event.inputs.ref_or_tag  }}
 
       - name: Publish packages
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/gradle-build-action@v3
         with:
           gradle-version: wrapper
           arguments: publish -Pversion=${{ needs.configure.outputs.version }} -PARTIFACT_VARIANT=${{ needs.configure.outputs.major_version }} -PGITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} -PGITHUB_USER=${{ github.actor }}
