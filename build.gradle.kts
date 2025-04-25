@@ -7,7 +7,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("net.pwall.json:json-kotlin-gradle:0.96.1")
+        classpath("net.pwall.json:json-kotlin-gradle:0.120")
     }
 }
 
