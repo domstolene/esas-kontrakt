@@ -12,7 +12,7 @@ buildscript {
 }
 
 dependencies {
-    implementation("net.pwall.json:json-kotlin-schema:0.56")
+    api("net.pwall.json:json-kotlin-schema:0.56")
 }
 
 plugins {
