@@ -7,17 +7,17 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("net.pwall.json:json-kotlin-gradle:0.96.1")
+        classpath("net.pwall.json:json-kotlin-gradle:0.120")
     }
 }
 
 dependencies {
-    implementation("net.pwall.json:json-kotlin-schema:0.51")
+    implementation("net.pwall.json:json-kotlin-schema:0.56")
 }
 
 plugins {
-    kotlin("jvm") version "1.9.21"
-    kotlin("plugin.serialization") version "1.9.21"
+    kotlin("jvm") version "2.1.20"
+    kotlin("plugin.serialization") version "2.1.20"
     `maven-publish`
 }
 
