@@ -29,6 +29,10 @@ val GITHUB_USER: String by project
 val GITHUB_TOKEN: String by project
 val ARTIFACT_VARIANT: String = project.findProperty("ARTIFACT_VARIANT") as String? ?: "x"
 
+java {
+    withSourcesJar()
+}
+
 sourceSets.main.configure {
     kotlin.srcDirs(layout.buildDirectory.dir("generated-sources/kotlin"))
 }
@@ -38,7 +42,7 @@ val majorVersion = Regex("^(\\d+)").find(project.version.toString())?.value ?: "
 apply<JSONSchemaCodegenPlugin>()
 
 configure<JSONSchemaCodegen> {
-    packageName.set("no.domstol.esas.kontrakterV${majorVersion}")
+    packageName.set("no.domstol.esas.kontrakter.V${majorVersion}")
     inputs {
         inputFile(file("kontrakter"))
     }
@@ -49,47 +53,28 @@ configure<JSONSchemaCodegen> {
 tasks.register<Copy>("copySchemaFiles") {
     from("kontrakter") {
         include("**/*.schema.json")
-    }
-    into(layout.buildDirectory.dir("generated-sources/kotlin/no/domstol/esas/kontrakterV${majorVersion}"))
-}
-
-//Copy example files
-tasks.register<Copy>("copyExampleFiles") {
-    from("kontrakter") {
         include("**/eksempelfiler/*.json")
     }
-    into(layout.buildDirectory.dir("generated-sources/kotlin/no/domstol/esas/kontrakterV${majorVersion}/"))
-
-    includeEmptyDirs = false
-}
-
-// Copy validator
-tasks.register<Copy>("copyValidator") {
-    from("validation") {
-        include("JSONSchemaValidator.kt")
-    }
-    into(layout.buildDirectory.dir("generated-sources/kotlin/no/domstol/esas"))
+    into(layout.buildDirectory.dir("generated-sources/kotlin/no/domstol/esas/kontrakter/V${majorVersion}"))
 }
 
 tasks.withType<Jar> {
     dependsOn("copySchemaFiles")
-    dependsOn("copyValidator")
-    dependsOn("copyExampleFiles")
-    from("src/main/kotlin")  // Include main source set
     from(layout.buildDirectory.dir("generated-sources/kotlin")) {
         include("**/*.schema.json")  // Include schema files
-        include("**/*.kt")  // Include Kotlin files
+        include("**/*.json") // Include example files
     }
-    // Include example files
-    from(layout.buildDirectory.dir(
-        "generated-sources/kotlin/no/domstol/esas/kontrakterV${majorVersion}/eksempelfiler")) {
-        include("**/*.json")
-    }
+}
+
+tasks.named<Jar>("sourcesJar") {
+    dependsOn("generate", "copySchemaFiles")
+
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
 // Make sure the copy task is executed before compileKotlin
 tasks.named("compileKotlin") {
-    dependsOn("copySchemaFiles", "copyExampleFiles", "copyValidator")
+    dependsOn("copySchemaFiles")
 }
 
 publishing {
@@ -106,9 +91,9 @@ publishing {
 
     publications {
         create<MavenPublication>("maven") {
+            from(components["java"])
             groupId = "no.domstol"
             artifactId = "${project.name}-v$ARTIFACT_VARIANT"
-            artifact(tasks.jar)
             pom {
                 licenses {
                     license {

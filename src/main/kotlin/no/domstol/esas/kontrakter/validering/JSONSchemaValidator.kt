@@ -1,3 +1,5 @@
+package no.domstol.esas.kontrakter.validering
+
 import net.pwall.json.schema.JSONSchema
 import net.pwall.json.schema.JSONSchemaException
 import java.io.InputStream
