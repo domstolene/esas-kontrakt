@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://domstol.no/da/varetekt/1.2/KjennelseVaretekt.schema.json",
+  "$id": "https://domstol.no/da/varetekt/1.5/KjennelseVaretekt.schema.json",
   "description": "Schema definisjon av en Kjennelse-varetekt",
   "properties": {
     "forsendelse": {
@@ -23,7 +23,21 @@
       "additionalProperties": false
     },
     "siktede": {
-      "$ref": "#/definitions/privatPerson"
+      "properties": {
+        "siktetPerson": {
+          "$ref": "#/definitions/privatPerson"
+        },
+        "forsvarere": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/forsvarer"
+          },
+          "minItems": 0
+        }
+      },
+      "required": ["siktetPerson", "forsvarere"],
+      "type": "object",
+      "additionalProperties": false
     },
     "dokumenter": {
       "type": "array",
@@ -96,20 +110,19 @@
         "avgjoerelseResultat": {
           "$ref": "#/definitions/avgjoerelseResultat"
         },
-        "restriksjoner": {
+        "vilkaar": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/restriksjon"
-          }
-        },
-        "isolasjonsKrav": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/isolasjon"
-          }
+            "$ref": "#/definitions/vilkaar"
+          },
+          "minItems": 0,
+          "description": "Vilkårene listet enkeltvis. Disse er sammenstilt i lovbudStreng"
         },
         "fengsling": {
           "$ref": "#/definitions/fengsling"
+        },
+        "fengslingssurrogat": {
+          "$ref": "#/definitions/fengslingssurrogat"
         },
         "erklaering": {
           "$ref": "#/definitions/erklaering",
@@ -121,9 +134,7 @@
         "avsagtDato",
         "opprinneligKravid",
         "avgjoerelseResultat",
-        "fengsling",
-        "restriksjoner",
-        "isolasjonsKrav",
+        "vilkaar",
         "erklaering"
       ],
       "type": "object",
@@ -144,15 +155,51 @@
         "fengslingsFristDato": {
           "$ref": "#/definitions/dato"
         },
-        "lovbud": {
-          "$ref": "#/definitions/lovbud"
+        "restriksjoner": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/restriksjon"
+          }
+        },
+        "isolasjonsKrav": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/isolasjon"
+          }
         },
         "merknad": {
           "type": "string",
           "description": "Merknad til fengslingen"
         }
       },
-      "required": ["fengslingsId"],
+      "required": [
+        "fengslingsId",
+        "fraDato",
+        "tilDato",
+        "restriksjoner",
+        "isolasjonsKrav"
+      ],
+      "type": "object",
+      "additionalProperties": false
+    },
+    "fengslingssurrogat": {
+      "properties": {
+        "surrogatId": {
+          "type": "string",
+          "description": "surrogatId som opprettes i DA (GUID)"
+        },
+        "fraDato": {
+          "$ref": "#/definitions/dato"
+        },
+        "tilDato": {
+          "$ref": "#/definitions/dato"
+        },
+        "surrogatBeskrivelse": {
+          "type": "string",
+          "description": "Beskrivelse av fengslingssurrogatet"
+        }
+      },
+      "required": ["surrogatId", "fraDato", "tilDato", "surrogatBeskrivelse"],
       "type": "object",
       "additionalProperties": false
     },
@@ -200,7 +247,8 @@
       "type": "object",
       "additionalProperties": false
     },
-    "lovbud": {
+    "lovbudEnkel": {
+      "description": "Enkel lovbudreferanse kun lovbudstreng",
       "properties": {
         "lovbudStreng": {
           "type": "string"
@@ -286,13 +334,7 @@
     },
     "avgjoerelseResultat": {
       "description": "ANKEN_FORKASTES og OPPHEVELSE kun relevant i ankesaker",
-      "enum": [
-        "FENGSLING",
-        "LOESLATELSE",
-        "FENGSLINGSSURROGAT",
-        "ANKEN_FORKASTES",
-        "OPPHEVELSE"
-      ],
+      "enum": ["VARETEKT", "LOESLATELSE", "ANKEN_FORKASTES", "OPPHEVELSE"],
       "type": "string"
     },
     "rettsInstansType": {
@@ -380,11 +422,10 @@
           "description": "F.eks. Nordland politidistrikt eller Oslo tingrett."
         },
         "organisasjonsnummer": {
-          "type": "string",
-          "description": "Norsk organisasjonsnummer fra BRREG. Referanse til politidistrikt, embete osv.",
-          "maxLength": 20,
-          "minLength": 2
-        }
+          "$ref": "#/definitions/organisasjonsnummer"
+        },
+        "adresse": { "$ref": "#/definitions/adresse" },
+        "postadresse": { "$ref": "#/definitions/adresse" }
       },
       "required": ["organisasjonsnummer"],
       "type": "object",
@@ -489,6 +530,58 @@
       "type": "object",
       "additionalProperties": false
     },
+    "forsvarer": {
+      "description": "Forsvareren som bistår siktede eller tiltalte i straffesaken (advokat, advokatfullmektig eller annen egnet person.)",
+      "properties": {
+        "identitetsnummer": {
+          "$ref": "#/definitions/personIdentifikator",
+          "description": "Fødselsnummer eller D-nummer. Unik identifisering av forsvareren"
+        },
+        "etternavn": {
+          "type": "string"
+        },
+        "fornavn": {
+          "type": "string"
+        },
+        "tittel": {
+          "type": "string",
+          "description": "F.eks 'Advokatfullmektig'."
+        },
+        "virksomhet": {
+          "$ref": "#/definitions/organisasjon",
+          "description": "Engasjert advokatforetak, enkeltpersonforetak eller annen organisasjon som forsvarer praktiserer ut i fra i den aktuelle saken."
+        }
+      },
+      "required": ["etternavn"],
+      "type": "object",
+      "additionalProperties": false
+    },
+    "adresse": {
+      "type": "object",
+      "properties": {
+        "adresselinjer": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          },
+          "minItems": 1,
+          "maxItems": 4
+        },
+        "postnummer": {
+          "type": "string"
+        },
+        "poststed": {
+          "type": "string"
+        },
+        "land": {
+          "$ref": "#/definitions/landType"
+        }
+      },
+      "required": ["adresselinjer"],
+      "additionalProperties": false
+    },
     "landType": {
       "description": "En landkode bestaar av tre store bokstaver fra kodelisten ISO 3166-1-alpha-3. Hentes fra kodeverk nationality.xml",
       "type": "object",
@@ -550,6 +643,49 @@
         }
       ]
     },
+    "vilkaarsType": {
+      "type": "string",
+      "description": "Hvilket vilkår gjelder for varetektsfengslingen. 173 brukes ved vilkårsbrudd.",
+      "enum": [
+        "STRPL88_UTEBLIVELSE",
+        "STRPL170A_FORHOLDSMESSIGHET",
+        "STRPL171_MINDRE_TYVERI",
+        "STRPL171_MULIG_SAERREAKSJON",
+        "STRPL171_1_UNNDRAGELSESFARE",
+        "STRPL171_2_BEVISFORSPILLELSE",
+        "STRPL171_3_GJENTAGELSESFARE",
+        "STRPL171_4_FYLDESTGJOERENDE_GRUNNER",
+        "STRPL172_A_10_AAR",
+        "STRPL172_B_GROV_VOLD",
+        "STRPL173_FLUKT_TIL_UTLANDET",
+        "STRPL173A_A_UNNDRAGELSESFARE_VILK",
+        "STRPL173A_B_HINDRE_VILK",
+        "STRPL173A_C_BEGJAERT_SIKTEDE",
+        "STRPL187_ANKE_ETTER_FRIFINNELSE",
+        "ARRESTORDREL13",
+        "ARRESTORDREL20",
+        "ARRESTORDREL38",
+        "ANNEN_SPESIALBESTEMMELSE"
+      ]
+    },
+    "vilkaar": {
+      "type": "object",
+      "description": "Et vilkår for varetektsfengsling",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/vilkaarsType"
+        },
+        "lovbudEnkel": {
+          "$ref": "#/definitions/lovbudEnkel"
+        },
+        "vilkaarBeskrivelse": {
+          "description": "Utvidet beskrivelse av vilkåret. F.eks. ved bruk av typen 'ANNEN_SPESIALBESTEMMELSE'",
+          "type": "string"
+        }
+      },
+      "required": ["type", "lovbudEnkel"],
+      "additionalProperties": false
+    },
     "foedselsnummer": {
       "type": "string",
       "pattern": "^[0-3][0-9][0189][0-9]+$",
@@ -567,6 +703,13 @@
       "pattern": "^[4-7][0-9][0189][0-9]+$",
       "minLength": 11,
       "maxLength": 11
+    },
+    "organisasjonsnummer": {
+      "type": "string",
+      "description": "Norsk organisasjonsnummer fra BRREG. Referanse til politistrikt, domstol, fengsel. https://www.brreg.no/om-oss/registrene-vare/om-enhetsregisteret/organisasjonsnummeret/",
+      "pattern": "^[0-9]+$",
+      "minLength": 9,
+      "maxLength": 9
     },
     "kodeverk": {
       "properties": {
