@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://domstol.no/da/varetekt/1.5/KjennelseVaretekt.schema.json",
+  "$id": "https://domstol.no/da/varetekt/1.6/KjennelseVaretekt.schema.json",
   "description": "Schema definisjon av en Kjennelse-varetekt",
   "properties": {
     "forsendelse": {
@@ -124,6 +124,9 @@
         "fengslingssurrogat": {
           "$ref": "#/definitions/fengslingssurrogat"
         },
+        "elektroniskKontroll": {
+          "$ref": "#/definitions/elektroniskKontroll"
+        },
         "erklaering": {
           "$ref": "#/definitions/erklaering",
           "description": "Erklæring fra siktede og påtale"
@@ -203,6 +206,32 @@
       "type": "object",
       "additionalProperties": false
     },
+    "elektroniskKontroll": {
+      "properties": {
+        "elektroniskKontrollId": {
+          "type": "string",
+          "description": "Id som opprettes i DA (GUID)"
+        },
+        "fraDato": {
+          "$ref": "#/definitions/dato"
+        },
+        "tilDato": {
+          "$ref": "#/definitions/dato"
+        },
+        "elektroniskKontrollBeskrivelse": {
+          "type": "string",
+          "description": "Beskrivelse av varetekten med Elektronisk Kontroll"
+        }
+      },
+      "required": [
+        "elektroniskKontrollId",
+        "fraDato",
+        "tilDato",
+        "elektroniskKontrollBeskrivelse"
+      ],
+      "type": "object",
+      "additionalProperties": false
+    },
     "restriksjon": {
       "properties": {
         "restriksjonsId": {
@@ -276,6 +305,14 @@
         "meddeltIRettsmoete": {
           "type": "boolean",
           "description": "Settes til true dersom avgjørelsen er meddelt i rettsmøtet"
+        },
+        "meddeltDato": {
+          "$ref": "#/definitions/dato",
+          "description": "Dato for når avgjørelsen ble meddelt"
+        },
+        "kommentar": {
+          "type": "string",
+          "description": "Frivillig kommentar til meddelelsen"
         },
         "erklaert": {
           "$ref": "#/definitions/erklaertType",

@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://politiet.no/varetekt/1.6/begjaeringVaretekt",
+  "$id": "https://politiet.no/varetekt/1.7/begjaeringVaretekt",
   "description": "Skjema for begjæring av varetektsmeldinger fra påtale til tingretten, JSON Schema versjon 2020-12",
   "type": "object",
   "properties": {
@@ -85,6 +85,9 @@
         },
         "fengslingssurrogat": {
           "$ref": "#/definitions/fengslingssurrogat"
+        },
+        "elektroniskKontroll": {
+          "$ref": "#/definitions/elektroniskKontroll"
         },
         "gyldigFraDato": {
           "$ref": "#/definitions/dato",
@@ -189,6 +192,18 @@
       "required": ["varighet", "beskrivelse"],
       "additionalProperties": false
     },
+    "elektroniskKontroll": {
+      "type": "object",
+      "description": "Info om elektronisk kontroll, med varighet og beskrivelse",
+      "properties": {
+        "varighet": {
+          "$ref": "#/definitions/varighet"
+        },
+        "beskrivelse": { "type": "string" }
+      },
+      "required": ["varighet", "beskrivelse"],
+      "additionalProperties": false
+    },
     "varighet": {
       "type": "object",
       "description": "Varighet på fengsling/restriksjon, antall dager eller frem til hovedforhandling (dato satt i saksinformasjon)",
@@ -235,7 +250,7 @@
           "type": "string",
           "description": "Kanskje referanse til dokument etc"
         },
-        "fengslingUtloeperDato": {
+        "varetektUtloeperDato": {
           "$ref": "#/definitions/dato",
           "description": "Dato for når gjeldene/forrige fengsling utløper"
         }
