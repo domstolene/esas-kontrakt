@@ -11,6 +11,11 @@
         "etternavn": "Politiets Datatjeneste"
       }
     },
+    "kontakt": {
+      "beskrivelse": "Distrikt sentralbord/postmottak",
+      "epost": "distrikt@politiet.no",
+      "telefonnummer": "88888888"
+    },
     "mottakerOrganisasjon": {
       "organisasjonsnummer": "926723480",
       "navn": "Agder tingrett"
@@ -73,6 +78,7 @@
       },
       "verger": []
     },
+    "under18": false,
     "varetekt": {
       "lovbud": {
         "lovbudStreng": "Straffeprosessloven § 171 første ledd nr. 2 og 3, jf. §§ 170a og 185"
@@ -81,48 +87,48 @@
         "fengsling": {
           "varighet": {
             "tilHovedforhandling": true
-          }
-        },
-        "restriksjoner": [
-          {
-            "restriksjonsType": "BREV_OG_BESOEKSFORBUD",
-            "lovbudEnkel": {
-              "lovbudStreng": "Strpl. § 186, 2.ledd 1.pkt."
-            },
-            "periode": {
-              "startDag": 1,
-              "varighet": {
-                "antallDager": 14
-              }
-            }
           },
-          {
-            "restriksjonsType": "BREV_OG_BESOEKSKONTROLL",
-            "lovbudEnkel": {
-              "lovbudStreng": "Strpl. § 186, 2.ledd 1.pkt."
+          "restriksjoner": [
+            {
+              "restriksjonsType": "BREV_OG_BESOEKSFORBUD",
+              "lovbudEnkel": {
+                "lovbudStreng": "Strpl. § 186, 2.ledd 1.pkt."
+              },
+              "periode": {
+                "startDag": 1,
+                "varighet": {
+                  "antallDager": 14
+                }
+              }
             },
-            "periode": {
-              "startDag": 15,
-              "varighet": {
-                "antallDager": 14
+            {
+              "restriksjonsType": "BREV_OG_BESOEKSKONTROLL",
+              "lovbudEnkel": {
+                "lovbudStreng": "Strpl. § 186, 2.ledd 1.pkt."
+              },
+              "periode": {
+                "startDag": 15,
+                "varighet": {
+                  "antallDager": 14
+                }
               }
             }
-          }
-        ],
-        "isolasjon": [
-          {
-            "isolasjonsType": "FULL_ISOLASJON",
-            "lovbudEnkel": {
-              "lovbudStreng": "Strpl. § 186a"
-            },
-            "periode": {
-              "startDag": 1,
-              "varighet": {
-                "tilHovedforhandling": true
+          ],
+          "isolasjon": [
+            {
+              "isolasjonsType": "FULL_ISOLASJON",
+              "lovbudEnkel": {
+                "lovbudStreng": "Strpl. § 186a"
+              },
+              "periode": {
+                "startDag": 1,
+                "varighet": {
+                  "tilHovedforhandling": true
+                }
               }
             }
-          }
-        ]
+          ]
+        }
       },
       "vilkaar": [
         {
@@ -138,17 +144,25 @@
           }
         },
         {
-          "type": "STRPL170A_FORHOLSMESSIGHET",
+          "type": "STRPL170A_FORHOLDSMESSIGHET",
           "lovbudEnkel": {
             "lovbudStreng": "Strpl § 170a"
           }
+        },
+        {
+          "type": "ANNEN_SPESIALBESTEMMELSE",
+          "lovbudEnkel": {
+            "lovbudStreng": "Annen spesialbestemmelse"
+          },
+          "vilkaarBeskrivelse": "Annen spesialbestemmelse"
         }
       ]
     },
     "saksinformasjon": {
       "varetektsType": "VANLIG",
       "forlengelse": {
-        "beskrivelse": "forlengelse"
+        "beskrivelse": "forlengelse",
+        "varetektUtloeperDato": "2023-10-11"
       },
       "hovedforhandlingsdato": "2023-12-11",
       "paagrepetTidspunkt": "2023-02-28T17:21:27+02:00",

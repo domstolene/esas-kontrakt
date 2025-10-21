@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://domstol.no/kjennelseBeslutning/1.1/kjennelseBeslutning",
+  "$id": "https://domstol.no/kjennelseBeslutning/1.2/kjennelseBeslutning",
   "description": "Skjema som definerer en generell kjennelse eller beslutning",
   "properties": {
     "pakkeId": {
@@ -461,6 +461,10 @@
         "meddeltDato": {
           "$ref": "#/definitions/dato",
           "description": "Dato for når avgjørelsen ble meddelt"
+        },
+        "kommentar": {
+          "type": "string",
+          "description": "Frivillig kommentar til meddelelsen"
         },
         "erklaert": {
           "$ref": "#/definitions/erklaertType",
