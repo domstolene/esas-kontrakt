@@ -37,6 +37,11 @@
         }
       }
     },
+    "forlengelse": {
+      "avgjoerelseId": "5F5B3C38-8F94-499D-A990-854F47AB8983",
+      "beskrivelse": "Forlengelse",
+      "reaksjonUtloeperDato": "2025-01-22"
+    },
     "paastand": {
       "paastandFoererett": {
         "beslaglagtFraDato": "2025-01-22",
