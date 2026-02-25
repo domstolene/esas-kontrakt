@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://politiet.no/varetekt/1.7/begjaeringVaretekt",
+  "$id": "https://politiet.no/varetekt/1.8/begjaeringVaretekt",
   "description": "Skjema for begjæring av varetektsmeldinger fra påtale til tingretten, JSON Schema versjon 2020-12",
   "type": "object",
   "properties": {
@@ -49,7 +49,13 @@
           "$ref": "#/definitions/saksinformasjon"
         }
       },
-      "required": ["kravId", "siktet", "saksinformasjon", "under18"],
+      "required": [
+        "kravId",
+        "siktet",
+        "saksinformasjon",
+        "under18",
+        "varetekt"
+      ],
       "additionalProperties": false
     },
     "vedlegg": {
@@ -112,24 +118,6 @@
         },
         "paagrepetTidspunkt": {
           "$ref": "#/definitions/datoTid"
-        },
-        "berammetFengslingsmoete": {
-          "type": "object",
-          "properties": {
-            "dato": { "$ref": "#/definitions/dato" },
-            "tid": {
-              "type": "string",
-              "format": "time"
-            },
-            "sted": {
-              "type": "string"
-            }
-          },
-          "required": ["dato"],
-          "additionalProperties": false
-        },
-        "varsleBistandsadvokat": {
-          "type": "string"
         },
         "begrenseOffentlighet": {
           "type": "array",
@@ -482,9 +470,6 @@
           "pattern": "^[A-Z]+$",
           "minLength": 3,
           "maxLength": 3
-        },
-        "navn": {
-          "type": "string"
         }
       },
       "required": ["kode"],
@@ -1138,6 +1123,10 @@
       "type": "object",
       "description": "Advokater, tolker, sakkyndige vitner",
       "properties": {
+        "identitetsnummer": {
+          "$ref": "#/definitions/personIdentifikator",
+          "description": "Fødselsnummer eller D-nummer. Unik identifisering av forsvareren"
+        },
         "tittel": {
           "type": "string"
         },
@@ -1161,7 +1150,7 @@
           "$ref": "#/definitions/kontaktInfoPerson"
         }
       },
-      "required": ["navn"],
+      "required": ["navn", "identitetsnummer"],
       "additionalProperties": false
     },
     "basissak": {
@@ -1352,7 +1341,7 @@
       "description": "Dokument som oversendes på justishub",
       "properties": {
         "internId": {
-          "type": "string",
+          "$ref": "#/definitions/GUID",
           "description": "Id for dokumentet internt i meldingen slik at det kan refereres til et bestemt dokument (dokumentRef)"
         },
         "kategori": {
@@ -1391,7 +1380,7 @@
       "description": "Referanse internt i melding til dokumenter i dokumentlisten",
       "properties": {
         "internId": {
-          "type": "string"
+          "$ref": "#/definitions/GUID"
         }
       },
       "required": ["internId"],
@@ -1427,6 +1416,10 @@
       "description": "Ett telefonnummer, norsk eller utenlands, med eller uten land prefix",
       "maxLength": 30,
       "minLength": 1
+    },
+    "GUID": {
+      "type": "string",
+      "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
     }
   }
 }
